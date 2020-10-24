@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 
 Future main() async {
   runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
     home: new HomePage(),
   ));
 }
@@ -47,13 +48,14 @@ class HomePageState extends State<HomePage> {
                 children: [
                   Container(
                     color: Colors.blue,
-                    height: 262,
+                    height: 252,
                     child: Center(
                       child: Text(
                         "${_data.temp} °C",
                         style: TextStyle(
                           color: Colors.white,
                           fontSize: 72,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
@@ -66,13 +68,14 @@ class HomePageState extends State<HomePage> {
                               width: MediaQuery.of(context).size.width,
                               height: 50))),
                   Container(
-                    height: 212,
+                    height: 222,
                     child: Center(
                       child: Text(
                         "${_data.psi} hPa",
                         style: TextStyle(
                           color: Color.fromARGB(255, 200, 200, 200),
                           fontSize: 72,
+                          fontWeight: FontWeight.w500,
                         ),
                       ),
                     ),
