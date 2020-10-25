@@ -5,34 +5,34 @@
 #include <Adafruit_BMP280.h>
 #include <ArduinoJson.h>
 
-
-#define SEALEVELPRESSURE_HPA (1013.25)  //tlak ve vysce 0 mnm
+#define SEALEVELPRESSURE_HPA (1013.25)    //tlak ve vysce 0 mnm
 
 long thisTime;
 long hour = 3600000;
 long minute = 60000;
 long second = 1000;
 
-Adafruit_BMP280 bmp;                    //delkarace promenne pro knihovnu
+Adafruit_BMP280 bmp;                      //delkarace promenne pro knihovnu
 
-float temperature, pressure;            //deklarace promennych a jejich datoveho typu
+float temperature, pressure;              //deklarace promennych a jejich datoveho typu
+float tk = 4.9;                           //teplotni konstanta pro korekci teploty
 
-const char* ssid = "RickyNet";           //zde zadejte SSID vasi wifi site
-const char* password = "********";       //zde zadejte vase heslo k wifi
+const char* ssid = "RickyNet";            //zde zadejte SSID vasi wifi site
+const char* password = "********";        //zde zadejte vase heslo k wifi
 
-ESP8266WebServer server(80);             //zapnuti serveru na portu 80 
+ESP8266WebServer server(80);              //zapnuti serveru na portu 80 
  
 void setup() {
-  Serial.begin(115200);                  //seriova komunikace - rychlost 115200 baudu
-  delay(100);                            //pockej 100 ms
+  Serial.begin(9600);                     //seriova komunikace - rychlost 9600 baudu
+  delay(100);                             //pockej 100 ms
   
-  bmp.begin(0x76);                       //I2C adresa senzoru teploty BMP280
+  bmp.begin(0x76);                        //I2C adresa senzoru teploty BMP280
 
   Serial.println("");
   Serial.println((String)"Připojování k WiFi síti "+ssid);
 
-  WiFi.softAPdisconnect(true);           //nezapne AP mod, nevytvori vlastni wifi
-  WiFi.begin(ssid, password);            //pripoji se k vasi lokalni wifi siti
+  WiFi.softAPdisconnect(true);            //nezapne AP mod, nevytvori vlastni wifi
+  WiFi.begin(ssid, password);             //pripoji se k vasi lokalni wifi siti
 
   //zkontroluje, zdali je pripojen k wifi
   while (WiFi.status() != WL_CONNECTED) {
@@ -67,7 +67,7 @@ void loop() {
 }
 
 void handle_json() {
-  temperature = bmp.readTemperature();
+  temperature = bmp.readTemperature() - tk;
   pressure = bmp.readPressure() / 100.0F;
   
   String jsonData;

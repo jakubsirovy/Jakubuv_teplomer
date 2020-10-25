@@ -4,6 +4,7 @@ import 'package:Jakubuv_teplomer_flutter/Api.dart';
 import 'package:Jakubuv_teplomer_flutter/termostat.dart';
 import 'package:Jakubuv_teplomer_flutter/wave.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 Future main() async {
   runApp(new MaterialApp(
@@ -30,16 +31,20 @@ class HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    Timer.periodic(Duration(seconds: 1), (Timer t) {
+    Timer.periodic(Duration(seconds: 5), (Timer t) {
       getData();
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown,
+    ]);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Kubovo počasí"),
+        title: Text("Jakubův teploměr"),
       ),
       body: _data == null
           ? Center(child: CircularProgressIndicator())
@@ -49,16 +54,27 @@ class HomePageState extends State<HomePage> {
                   Container(
                     color: Colors.blue,
                     height: 252,
-                    child: Center(
-                      child: Text(
-                        "${_data.temp} °C",
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 72,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${_data.temp}",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 72,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            "\u2103",
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 72,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ]),
                   ),
                   Align(
                       alignment: Alignment.bottomLeft,
@@ -69,16 +85,27 @@ class HomePageState extends State<HomePage> {
                               height: 50))),
                   Container(
                     height: 222,
-                    child: Center(
-                      child: Text(
-                        "${_data.psi} hPa",
-                        style: TextStyle(
-                          color: Color.fromARGB(255, 200, 200, 200),
-                          fontSize: 72,
-                          fontWeight: FontWeight.w500,
-                        ),
-                      ),
-                    ),
+                    child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "${_data.psi}",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 200, 200, 200),
+                              fontSize: 72,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          Text(
+                            "\u02b0\u1d3e\u1d43",
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 200, 200, 200),
+                              fontSize: 72,
+                              fontWeight: FontWeight.w200,
+                            ),
+                          ),
+                        ]),
                   ),
                 ],
               ),
