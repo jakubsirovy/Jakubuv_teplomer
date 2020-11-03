@@ -15,7 +15,7 @@ long second = 1000;
 Adafruit_BMP280 bmp;                      //delkarace promenne pro knihovnu
 
 float temperature, pressure;              //deklarace promennych a jejich datoveho typu
-float tk = 4.9;                           //teplotni konstanta pro korekci teploty
+float tk = 0.9;                           //teplotni konstanta pro korekci teploty
 
 const char* ssid = "RickyNet";            //zde zadejte SSID vasi wifi site
 const char* password = "********";        //zde zadejte vase heslo k wifi
