@@ -8,10 +8,10 @@ from flask_cors import CORS
 import codecs	                                                  		              #Import knihoven
 
 mydb = mysql.connector.connect(
-  host="****",
-  user="****",
-  password="****",
-  database="****"
+  host="127.0.0.1",
+  user="***",
+  password="***",
+  database="***"
 )                                                                                 #Udaje pro pripojeni k databazi
 
 mydb.start_transaction(isolation_level='READ UNCOMMITTED')			                  #Zajisti moznost refreshovani hodnot
@@ -42,7 +42,7 @@ while True:                                                                     
     try:
       with urllib.request.urlopen('http://192.168.88.247/api'):			              #Pokud je server online, vykona se cast kodu po "except"
         mycursor = mydb.cursor()						                                      #Kurzor databaze
-        mycursor.execute("SELECT * FROM (SELECT * FROM Teplomer ORDER BY Id DESC LIMIT 12) t ORDER BY Id ASC;")		  #Vyber z tabulky teplomer poslednich 12 zaznamu
+        mycursor.execute("SELECT * FROM (SELECT * FROM Teplomer ORDER BY Id DESC LIMIT 13) t ORDER BY Id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
         myresult = mycursor.fetchall()						                                #Vykonej prikaz
         rowHeaders = ("id", "timestamp", "temperature", "pressure")		            #Nazvy sloupcu z tabulky
         jsonData = []								                                              #Pole hodnot
