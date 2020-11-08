@@ -5,24 +5,6 @@
     <meta name='viewport' content='width=device-width, initial-scale=1.0'>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:300,400,600' rel='stylesheet'>
     <script src='https://cdn.jsdelivr.net/npm/chart.js@2.8.0'></script>
-    <script>
-        async function get() {
-            let url = 'http://109.183.224.100:2222/api';
-            let obj = await (await fetch(url)).json();
-            return obj;
-        }
-        var jsonData;
-        function parsedata() {
-            (async () => {
-                jsonData = await get();
-                var jsonObj = JSON.parse(JSON.stringify(jsonData));
-                document.getElementById('temperature').innerHTML = jsonObj.temperature.toFixed(1);
-                document.getElementById('pressure').innerHTML = jsonObj.pressure.toFixed(0);
-            })()
-        }
-        setTimeout(parsedata, 0);
-        setInterval(parsedata, 30000); //aktualizace dat jednou za 30s
-    </script>
     <style>
         html {
           font-family: 'Open Sans', sans-serif;display: block;
@@ -32,10 +14,13 @@
         }
         body {
           margin: 0px;
-          background-color: #eee;
+          background: #f2f2f2;
         }
         h1 {
           margin: 50px auto 30px;
+          background: -webkit-linear-gradient(left, #5479f3, #8b67ec);
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
         }
         canvas {
 		      -moz-user-select: none;
@@ -89,6 +74,8 @@
         }
         .wrapper {
           display: inline-block;
+          box-shadow: 0px -6px 10px rgba(255, 255, 255, 1), 0px 4px 15px rgba(0, 0, 0, 0.15);
+          background: #f2f2f2;
         }
         .info {
           padding: 0 40px 0 10px;
@@ -104,10 +91,11 @@
           display: inline-block;
           width: 40%; 
           padding: 10px 20px 20px 20px;
-          background-color: white;
+          background: #f2f2f2;
           border-radius: 20px;
+          box-shadow: 0px -6px 10px rgba(255, 255, 255, 1), 0px 4px 15px rgba(0, 0, 0, 0.15);
         }
-        @media only screen and (max-width: 1100px) {
+        @media only screen and (max-width: 1164px) {
           .wrapper {
             display: flex;
           }
@@ -121,6 +109,7 @@
         }
     </style>
 </head>
+
 <body>
   <h1>Jakubův pokojový teploměr</h1>
   <div class='container'>
@@ -161,16 +150,32 @@
   </div>
   <div>
     <div class='chart-container'>
-      <h2 class="temperature">Vývoj teploty za posledních 10 hodin</h2>
+      <h2 class="temperature">Vývoj teploty za posledních 12 hodin</h2>
       <canvas id='line-chart'></canvas>
     </div>
     <div class='chart-container'>
-      <h2 class="pressure">Vývoj tlaku za posledních 10 hodin</h2>
+      <h2 class="pressure">Vývoj tlaku za posledních 12 hodin</h2>
       <canvas id='line-chart2'></canvas>
     </div>
   </div>
-</body>
-
+<script>
+  async function get() {
+      let url = 'http://109.183.224.100:2222/api';
+      let obj = await (await fetch(url)).json();
+      return obj;
+  }
+  var jsonData;
+  function parsedata() {
+      (async () => {
+          jsonData = await get();
+          var jsonObj = JSON.parse(JSON.stringify(jsonData));
+          document.getElementById('temperature').innerHTML = jsonObj.temperature.toFixed(1);
+          document.getElementById('pressure').innerHTML = jsonObj.pressure.toFixed(0);
+      })()
+  }
+  setTimeout(parsedata, 0);
+  setInterval(parsedata, 30000);  //aktualizace dat jednou za 30s
+</script>
 <script>
   async function get1() {
       let url = 'http://109.183.224.100:2222/graph_api';
@@ -183,47 +188,25 @@
           jsonData = await get1();
           var jsonObj = JSON.parse(JSON.stringify(jsonData));
 
-          var tmp1 = jsonObj[0].temperature.toFixed(1);
-          var tmp2 = jsonObj[1].temperature.toFixed(1);
-          var tmp3 = jsonObj[2].temperature.toFixed(1);
-          var tmp4 = jsonObj[3].temperature.toFixed(1);
-          var tmp5 = jsonObj[4].temperature.toFixed(1);
-          var tmp6 = jsonObj[5].temperature.toFixed(1);
-          var tmp7 = jsonObj[6].temperature.toFixed(1);
-          var tmp8 = jsonObj[7].temperature.toFixed(1);
-          var tmp9 = jsonObj[8].temperature.toFixed(1);
-          var tmp10 = jsonObj[9].temperature.toFixed(1);
+          function temperature(col) {
+            let temp = jsonObj[col].temperature;
+            var formattedTemp = temp.toFixed(0);
+            return(formattedTemp);
+          }
 
-          var pre1 = jsonObj[0].pressure.toFixed(0);
-          var pre2 = jsonObj[1].pressure.toFixed(0);
-          var pre3 = jsonObj[2].pressure.toFixed(0);
-          var pre4 = jsonObj[3].pressure.toFixed(0);
-          var pre5 = jsonObj[4].pressure.toFixed(0);
-          var pre6 = jsonObj[5].pressure.toFixed(0);
-          var pre7 = jsonObj[6].pressure.toFixed(0);
-          var pre8 = jsonObj[7].pressure.toFixed(0);
-          var pre9 = jsonObj[8].pressure.toFixed(0);
-          var pre10 = jsonObj[9].pressure.toFixed(0);
-
-          var tmpArr = new Array(tmp1,tmp2,tmp3,tmp4,tmp5,tmp6,tmp7,tmp8,tmp9,tmp10);
-          var tmpIntArr = new Array(parseFloat(tmp1),parseFloat(tmp2),parseFloat(tmp3),parseFloat(tmp4),parseFloat(tmp5),parseFloat(tmp6),parseFloat(tmp7),parseFloat(tmp8),parseFloat(tmp9),parseFloat(tmp10));
-          var tmpMax = Math.max(parseFloat(tmp1),parseFloat(tmp2),parseFloat(tmp3),parseFloat(tmp4),parseFloat(tmp5),parseFloat(tmp6),parseFloat(tmp7),parseFloat(tmp8),parseFloat(tmp9),parseFloat(tmp10));
-          var tmpMin = Math.min(parseFloat(tmp1),parseFloat(tmp2),parseFloat(tmp3),parseFloat(tmp4),parseFloat(tmp5),parseFloat(tmp6),parseFloat(tmp7),parseFloat(tmp8),parseFloat(tmp9),parseFloat(tmp10));
-          var tmpUnit = (tmpMax - tmpMin)/6;
-
-          var preArr = new Array(pre1,pre2,pre3,pre4,pre5,pre6,pre7,pre8,pre9,pre10);
-          var preIntArr = new Array(parseFloat(pre1),parseFloat(pre2),parseFloat(pre3),parseFloat(pre4),parseFloat(pre5),parseFloat(pre6),parseFloat(pre7),parseFloat(pre8),parseFloat(pre9),parseFloat(pre10));
-          var preMax = Math.max(parseFloat(pre1),parseFloat(pre2),parseFloat(pre3),parseFloat(pre4),parseFloat(pre5),parseFloat(pre6),parseFloat(pre7),parseFloat(pre8),parseFloat(pre9),parseFloat(pre10));
-          var preMin = Math.min(parseFloat(pre1),parseFloat(pre2),parseFloat(pre3),parseFloat(pre4),parseFloat(pre5),parseFloat(pre6),parseFloat(pre7),parseFloat(pre8),parseFloat(pre9),parseFloat(pre10));
-          var preUnit = (preMax - preMin)/6;
+          function pressure(col) {
+            let pres = jsonObj[col].pressure;
+            var formattedPres = pres.toFixed(0);
+            return(formattedPres);
+          }
 
           function time(col) {
-            let unix_timestamp = jsonObj[col].timestamp
+            let unix_timestamp = jsonObj[col].timestamp;
             var date = new Date(unix_timestamp * 1000);
             var hours = date.getHours();
             var minutes = "0" + date.getMinutes();
             var seconds = "0" + date.getSeconds();
-            var formattedTime = hours + ':' + minutes.substr(-2); // + ':' + seconds.substr(-2);
+            var formattedTime = hours + ':' + minutes.substr(-2);   // + ':' + seconds.substr(-2);
             return(formattedTime);
           }
 
@@ -241,10 +224,11 @@
           new Chart(ctx, {
           type: 'line',
           data: {
-            labels: [time(0),time(1),time(2),time(3),time(4),time(5),time(6),time(7),time(8),time(9)],
+            labels: [time(0),time(1),time(2),time(3),time(4),time(5),time(6),time(7),time(8),time(9),time(10),time(11)],
             datasets: [{ 
-                data: [tmp1,tmp2,tmp3,tmp4,tmp5,tmp6,tmp7,tmp8,tmp9,tmp10],
+                data: [temperature(0),temperature(1),temperature(2),temperature(3),temperature(4),temperature(5),temperature(6),temperature(7),temperature(8),temperature(9),temperature(10),temperature(11),],
                 label: 'Teplota',
+                pointBackgroundColor: '#5479f3',
                 borderColor: '#5479f3',
                 backgroundColor: gradientFill,
                 fill: true
@@ -259,9 +243,9 @@
               yAxes: [{
                 ticks: {
                   reverse: false,
-                  stepSize: tmpUnit,
-                  max: tmpMax + tmpUnit,
-                  min: tmpMin - tmpUnit
+                  stepSize: 1,
+                  suggestedMax: 30,
+                  suggestedMin: 15 
                 }
               }]
             }
@@ -270,10 +254,11 @@
         new Chart(ctx2, {
           type: 'line',
           data: {
-            labels: [time(0),time(1),time(2),time(3),time(4),time(5),time(6),time(7),time(8),time(9)],
+            labels: [time(0),time(1),time(2),time(3),time(4),time(5),time(6),time(7),time(8),time(9),time(10),time(11)],
             datasets: [{ 
-                data: [pre1,pre2,pre3,pre4,pre5,pre6,pre7,pre8,pre9,pre10],
+                data: [pressure(0),pressure(1),pressure(2),pressure(3),pressure(4),pressure(5),pressure(6),pressure(7),pressure(8),pressure(9),pressure(10),pressure(11)],
                 label: 'Tlak',
+                pointBackgroundColor: '#8b67ec',
                 borderColor: '#8b67ec',
                 backgroundColor: gradientFill2,
                 fill: true
@@ -288,9 +273,9 @@
               yAxes: [{
                 ticks: {
                   reverse: false,
-                  stepSize: preUnit,
-                  suggestedMax: preMax + preUnit,
-                  suggestedMin: preMin - preUnit
+                  stepSize: 25,
+                  suggestedMax: 1050,
+                  suggestedMin: 925
                 }
               }]
             }
@@ -301,4 +286,5 @@
 setTimeout(parsedata1, 0);
 setInterval(parsedata1, 300000);
 </script>
+</body>
 </html>
