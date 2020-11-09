@@ -1,3 +1,4 @@
 # Jakubuv_teplomer
-Ročníková práce pro 3. ročník  
+![](Jakubuv_teplomer.png)
+#### Ročníková práce pro 3. ročník  
 [Jakubův teploměr](http://jakubsirovy.cz/teplomer.html)
