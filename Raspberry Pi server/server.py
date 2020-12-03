@@ -8,10 +8,10 @@ from flask_cors import CORS
 import codecs	                                                  		              #Import knihoven
 
 mydb = mysql.connector.connect(
-  host="127.0.0.1",
-  user="***",
-  password="***",
-  database="***"
+  host="localhost",
+  user="*",
+  password="*",
+  database="*"
 )                                                                                 #Udaje pro pripojeni k databazi
 
 mydb.start_transaction(isolation_level='READ UNCOMMITTED')			                  #Zajisti moznost refreshovani hodnot
@@ -37,7 +37,7 @@ while True:                                                                     
     except:
       return None								                                                  #Pokud nic neprijde z ESP8266, tak se nic nevrati na /api
 
-  @app.route('/chart_api', methods=['GET'])					                              #Api grafu
+  @app.route('/chart-api', methods=['GET'])					                              #Api grafu
   def chart_api():
     try:
       with urllib.request.urlopen('http://192.168.88.247/api'):			              #Pokud je server online, vykona se cast kodu po "except"
