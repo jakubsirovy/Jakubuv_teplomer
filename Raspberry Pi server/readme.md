@@ -15,4 +15,8 @@ Screen běží i po odpojení od ssh.
 Todb.py je program, který zajišťuje nahrávání dat z teploměru na SQL server. Stará se o kopírování API teploměru na adresu serveru`/api`. Tato akce probíhá každou hodinu. Kromě toho data uloží na SQL server, kde záznam vydrží 12 hodin (v tabulce zůstává 13 záznamů).
 
 ## server.py
-Tento program má za úkol upload API aktuální teploty `/api` a API grafu `/chart_api`. Mimo toho se stará o hosting hlavního HTML souboru.
+Tento program má za úkol upload API aktuální teploty `/api` a API grafu `/chart-api`. Mimo toho se stará o hosting hlavního HTML souboru.
+
+## Testování
+Pro testovací účely je tu možnost spuštění serveru se simulovanými hodnotami pouze za použití Raspberry Pi. 
+Spouští se pomocí příkazu `sudo python3 test-server.py`.
