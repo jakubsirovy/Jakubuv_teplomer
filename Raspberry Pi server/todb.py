@@ -3,10 +3,10 @@ import urllib.request, json
 import time, datetime                                                             #Import knihoven
 
 mydb = mysql.connector.connect(
-  host="127.0.0.1",
-  user="***",
-  password="***",
-  database="***"
+  host="localhost",
+  user="****",
+  password="****",
+  database="****"
 )                                                                                 #Udaje pro pripojeni k databazi
 
 while True:                                                                       #Nekonecna smycka
@@ -19,14 +19,14 @@ while True:                                                                     
         pre = data['pressure']                                                    #Promenna pro tlak
 
         mycursor = mydb.cursor()                                                  #Deklarace promenne
-        mycursor.execute("INSERT INTO Teplomer (Timestamp, Temperature, Pressure) VALUES (UNIX_TIMESTAMP(), %s, %s);", (tmp, pre))   #SQL dotaz, ktery vklada na SQL server data
+        mycursor.execute("INSERT INTO teplomer (timestamp, temperature, pressure) VALUES (UNIX_TIMESTAMP(), %s, %s);", (tmp, pre))   #SQL dotaz, ktery vklada na SQL server data
         mydb.commit()                                                             #Vykonani                                                             
         mycursor.execute("SELECT max(Id) FROM Teplomer;")			                    #Vyber posledni id z tabulky teplomer
         myresult = mycursor.fetchall()						                                #Proved prikaz
         for x in myresult:							                                          #Pro kazdou hodnotu v poli...
           if x[0]>12:								                                              #Pokud je pocet zaznamu z SQL vetsi nez 10, proved odsazenou cast kodu
             mycursor = mydb.cursor()						                                  #Kurzor databaze
-            mycursor.execute("DELETE FROM Teplomer WHERE id=(SELECT maxo FROM (SELECT MAX(Id)-13 AS maxo FROM Teplomer) AS tmp);")	  #Vymaz z tabulky teplomer posledni zaznam (nejstarsi), aby v tabulce zbylo 12 zaznamu
+            mycursor.execute("DELETE FROM teplomer WHERE id=(SELECT maxo FROM (SELECT MAX(id)-13 AS maxo FROM teplomer) AS tmp);")	  #Vymaz z tabulky teplomer posledni zaznam (nejstarsi), aby v tabulce zbylo 12 zaznamu
             mydb.commit()							                                            #Proved
         print(mycursor.rowcount, 'Zaznam uspesne vlozen. ' + str(datetime.datetime.now().hour) + ':' + str(datetime.datetime.now().minute))	#Hlaska o uspesnem vlozeni dat
 
