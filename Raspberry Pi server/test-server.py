@@ -34,7 +34,7 @@ while True:                                                                     
   @app.route("/chart-api", methods=["GET"])					                                    #Api grafu
   def chart_api():
     mycursor = mydb.cursor()						                                                #Kurzor databaze
-    mycursor.execute("SELECT * FROM (SELECT * FROM Teplomer ORDER BY Id DESC LIMIT 13) t ORDER BY Id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
+    mycursor.execute("SELECT * FROM (SELECT * FROM teplomer ORDER BY id DESC LIMIT 13) t ORDER BY id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
     myresult = mycursor.fetchall()						                                          #Vykonej prikaz
     rowHeaders = ("id", "timestamp", "temperature", "pressure")		                      #Nazvy sloupcu z tabulky
     jsonData = []								                                                        #Pole hodnot
