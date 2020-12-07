@@ -7,3 +7,8 @@ Ročníková práce na téma IoT.
 - ESP8266
 - Senzor teploty BMP280
 - Raspberry Pi
+### Mobilní aplikace
+# Jakubuv_teplomer_flutter
+Multiplatformní aplikace pro mobilní zařízení, která zobrazuje aktuální hodnoty z teploměru a graf.
+![](/Screenshot_1.png) | ![](/Screenshot_2.png)
+:---------------------:|:---------------------:
