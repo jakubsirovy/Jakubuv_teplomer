@@ -1,8 +1,9 @@
 import 'dart:async';
 
-import 'package:Jakubuv_teplomer_flutter/Api.dart';
-import 'package:Jakubuv_teplomer_flutter/termostat.dart';
+import 'package:Jakubuv_teplomer_flutter/thermometer/api.dart';
+import 'package:Jakubuv_teplomer_flutter/thermometer/termometer.dart';
 import 'package:Jakubuv_teplomer_flutter/wave.dart';
+import 'package:Jakubuv_teplomer_flutter/chart/chart.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -19,10 +20,10 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  Thermostat _data;
+  Thermometer _data;
 
   Future getData() async {
-    Thermostat data = await Api().getData();
+    Thermometer data = await Api().getData();
     setState(() {
       _data = data;
     });
@@ -108,6 +109,15 @@ class HomePageState extends State<HomePage> {
                         ]),
                   ),
                 ],
+              ),
+              floatingActionButton: FloatingActionButton.extended(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Chart()));
+                },
+                label: Text('Graf'),
+                icon: Icon(Icons.analytics_rounded),
+                backgroundColor: Colors.blue,
               ),
             ),
     );

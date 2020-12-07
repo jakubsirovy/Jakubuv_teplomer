@@ -8,6 +8,15 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.5.0-nullsafety.1"
+  bezier_chart:
+    dependency: "direct main"
+    description:
+      path: "."
+      ref: master
+      resolved-ref: "2947d977f732c41de4ced8f5da6bc374f0ade3b8"
+      url: "git://github.com/aeyrium/bezier-chart.git"
+    source: git
+    version: "1.0.17+1"
   boolean_selector:
     dependency: transitive
     description:
@@ -81,6 +90,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.1.4"
+  intl:
+    dependency: transitive
+    description:
+      name: intl
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.16.1"
   matcher:
     dependency: transitive
     description:

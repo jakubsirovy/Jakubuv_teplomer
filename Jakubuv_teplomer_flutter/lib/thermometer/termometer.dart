@@ -1,9 +1,9 @@
 /// Datový model
-class Thermostat {
+class Thermometer {
   double temperature;
   double pressure;
 
-  Thermostat({this.temperature, this.pressure});
+  Thermometer({this.temperature, this.pressure});
 
   // Takzvaně gettery
   String get temp => this.temperature.toStringAsFixed(1);
