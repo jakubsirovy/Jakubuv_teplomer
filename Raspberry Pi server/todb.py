@@ -16,12 +16,12 @@ while True:                                                                     
       with urllib.request.urlopen('http://192.168.88.247/api') as url:            #Deklarace URL adresy
         data = json.loads(url.read().decode())                                    #Dekodovani JSONu
         tmp = data['temperature']                                                 #Promenna pro teplotu
-        pre = data['pressure']                                                    #Promenna pro tlak
+        hum = data['humidity']                                                    #Promenna pro tlak
 
         mycursor = mydb.cursor()                                                  #Deklarace promenne
-        mycursor.execute("INSERT INTO teplomer (timestamp, temperature, pressure) VALUES (UNIX_TIMESTAMP(), %s, %s);", (tmp, pre))   #SQL dotaz, ktery vklada na SQL server data
+        mycursor.execute("INSERT INTO teplomer (timestamp, temperature, humidity) VALUES (UNIX_TIMESTAMP(), %s, %s);", (tmp, hum))   #SQL dotaz, ktery vklada na SQL server data
         mydb.commit()                                                             #Vykonani                                                             
-        mycursor.execute("SELECT max(Id) FROM Teplomer;")			                    #Vyber posledni id z tabulky teplomer
+        mycursor.execute("SELECT max(id) FROM teplomer;")			                    #Vyber posledni id z tabulky teplomer
         myresult = mycursor.fetchall()						                                #Proved prikaz
         for x in myresult:							                                          #Pro kazdou hodnotu v poli...
           if x[0]>12:								                                              #Pokud je pocet zaznamu z SQL vetsi nez 10, proved odsazenou cast kodu

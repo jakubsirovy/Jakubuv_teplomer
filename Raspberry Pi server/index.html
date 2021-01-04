@@ -45,7 +45,7 @@
         .temperature {
           color: #5479f3;
         }
-        .pressure {
+        .humidity {
           color: #8b67ec;
         }
         .superscript {
@@ -131,7 +131,7 @@
               </div>
           </div>
       </div>
-      <div class='data pressure wrapper'>
+      <div class='data humidity wrapper'>
           <div class='info'>
               <div class='icon'>
                   <svg enable-background='new 0 0 40.542 40.541' height=40.541px id=svg_2 version=1.1
@@ -140,11 +140,11 @@
                       <g><path d='M34.313,20.271c0-0.552,0.447-1,1-1h5.178c-0.236-4.841-2.163-9.228-5.214-12.593l-3.425,3.424c-0.195,0.195-0.451,0.293-0.707,0.293s-0.512-0.098-0.707-0.293c-0.391-0.391-0.391-1.023,0-1.414l3.425-3.424c-3.375-3.059-7.776-4.987-12.634-5.215c0.015,0.067,0.041,0.13,0.041,0.202v4.687c0,0.552-0.447,1-1,1s-1-0.448-1-1V0.25c0-0.071,0.026-0.134,0.041-0.202C14.39,0.279,9.936,2.256,6.544,5.385l3.576,3.577c0.391,0.391,0.391,1.024,0,1.414c-0.195,0.195-0.451,0.293-0.707,0.293s-0.512-0.098-0.707-0.293L5.142,6.812c-2.98,3.348-4.858,7.682-5.092,12.459h4.804c0.552,0,1,0.448,1,1s-0.448,1-1,1H0.05c0.525,10.728,9.362,19.271,20.22,19.271c10.857,0,19.696-8.543,20.22-19.271h-5.178C34.76,21.271,34.313,20.823,34.313,20.271z M23.084,22.037c-0.559,1.561-2.274,2.372-3.833,1.814c-1.561-0.557-2.373-2.272-1.815-3.833c0.372-1.041,1.263-1.737,2.277-1.928L25.2,7.202L22.497,19.05C23.196,19.843,23.464,20.973,23.084,22.037z' fill=#8b67ec /></g>
                   </svg>
               </div>
-              <div class='text pressure'>Tlak</div>
+              <div class='text humidity'>Vlhkost</div>
           </div>
           <div class='value'>
               <div class='reading'>
-                  <span><p id='pressure' class='inline'>-</p><p class='superscript hPa inline'> hPa</p></span>
+                  <span><p id='humidity' class='inline'>-</p><p class='superscript % inline'> %</p></span>
               </div>
           </div>
       </div>
@@ -155,7 +155,7 @@
       <canvas id='line-chart'></canvas>
     </div>
     <div class='chart-container'>
-      <h2 class="pressure">Vývoj tlaku za posledních 12 hodin</h2>
+      <h2 class="humidity">Vývoj vlhkosti za posledních 12 hodin</h2>
       <canvas id='line-chart2'></canvas>
     </div>
   </div>
@@ -171,7 +171,7 @@
           jsonData = await get();
           var jsonObj = JSON.parse(JSON.stringify(jsonData));
           document.getElementById('temperature').innerHTML = jsonObj.temperature.toFixed(1);
-          document.getElementById('pressure').innerHTML = jsonObj.pressure.toFixed(0);
+          document.getElementById('humidity').innerHTML = jsonObj.humidity.toFixed(1);
       })()
   }
   setTimeout(parsedata, 0);
@@ -190,12 +190,12 @@
           var jsonObj = JSON.parse(JSON.stringify(jsonData));
 
           var tempArray = [];
-          var pressArray = [];
-          var timeArray = []
+          var humiArray = [];
+          var timeArray = [];
           
           for(var i=0; i<jsonObj.length; i++){
             tempArray.push(jsonObj[i].temperature.toFixed(1));
-            pressArray.push(jsonObj[i].pressure.toFixed(0));
+            humiArray.push(jsonObj[i].humidity.toFixed(1));
             let unix_timestamp = jsonObj[i].timestamp;
             var date = new Date(unix_timestamp * 1000);
             var hours = date.getHours();
@@ -250,8 +250,8 @@
           data: {
             labels: timeArray,
             datasets: [{ 
-                data: pressArray,
-                label: 'Tlak',
+                data: humiArray,
+                label: 'Vlhkost',
                 pointBackgroundColor: '#8b67ec',
                 borderColor: '#8b67ec',
                 backgroundColor: gradientFill2,
@@ -267,9 +267,9 @@
               yAxes: [{
                 ticks: {
                   reverse: false,
-                  stepSize: 25,
-                  suggestedMax: 1050,
-                  suggestedMin: 925
+                  stepSize: 10,
+                  suggestedMax: 100,
+                  suggestedMin: 0
                 }
               }]
             }

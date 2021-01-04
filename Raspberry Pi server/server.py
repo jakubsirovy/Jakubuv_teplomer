@@ -9,9 +9,9 @@ import codecs	                                                  		              
 
 mydb = mysql.connector.connect(
   host="localhost",
-  user="*",
-  password="*",
-  database="*"
+  user="****",
+  password="****",
+  database="****"
 )                                                                                 #Udaje pro pripojeni k databazi
 
 mydb.start_transaction(isolation_level='READ UNCOMMITTED')			                  #Zajisti moznost refreshovani hodnot
@@ -42,9 +42,9 @@ while True:                                                                     
     try:
       with urllib.request.urlopen('http://192.168.88.247/api'):			              #Pokud je server online, vykona se cast kodu po "except"
         mycursor = mydb.cursor()						                                      #Kurzor databaze
-        mycursor.execute("SELECT * FROM (SELECT * FROM Teplomer ORDER BY Id DESC LIMIT 13) t ORDER BY Id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
+        mycursor.execute("SELECT * FROM (SELECT * FROM teplomer ORDER BY id DESC LIMIT 13) t ORDER BY id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
         myresult = mycursor.fetchall()						                                #Vykonej prikaz
-        rowHeaders = ("id", "timestamp", "temperature", "pressure")		            #Nazvy sloupcu z tabulky
+        rowHeaders = ("id", "timestamp", "temperature", "humidity")		            #Nazvy sloupcu z tabulky
         jsonData = []								                                              #Pole hodnot
         for x in myresult:							                                          #Pro kazdou hodnotu v poli...
           jsonData.append(dict(zip(rowHeaders, x)))				                        #Vytvor JSON z pole
