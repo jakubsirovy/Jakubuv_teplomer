@@ -1,6 +1,6 @@
 # ESP8266
 Toto zařízení je malý wifi mikrokontroler, velikostně přibližně jako Arduino nano. Od Arduina se liší tím, že přímo na desce obsahuje wifi čip.
-Toto zařízení v mém projektu slouží ke sběru dat. Čtyřmi vodiči je k němu připojený senzor teploty BMP280, který zaznamenává teplotu a tlak.
+Toto zařízení v mém projektu slouží ke sběru dat. Čtyřmi vodiči je k němu připojený senzor teploty BME280, který zaznamenává teplotu a vlhkost.
 ESP8266 z tohoto senzoru sbírá data a vytváří z nich pole hodnot, které je následně převáděno na JSON. Na ESP8266 běží webový server (API), na které se uploaduje tento JSON.
 ## BME280
-Kvůli zkratu jsem byl nucen zakoupit nový senzor, tak jsem se rozhodl přejít na BME280, který narozdíl od BMP280 dokáže měřit i vlhkost vzduchu. Tlak vzduchu v místnosti jsem tedy ve svém projektu nahradil vlhkostí.
+Kvůli zkratu jsem byl nucen zakoupit nový senzor, tak jsem se rozhodl přejít na BME280, který narozdíl od kdysi používaného BMP280 dokáže měřit i vlhkost vzduchu. Tlak vzduchu v místnosti jsem tedy ve svém projektu nahradil vlhkostí.
