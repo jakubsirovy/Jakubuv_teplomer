@@ -30,7 +30,7 @@ while True:                                                                     
   @app.route('/api', methods=['GET'])						                                  #Api z ESP8266
   def api():
     try:
-      with urllib.request.urlopen('http://192.168.88.247/api') as url:      	    #Deklarace URL adresy + zjisteni, zda je server online - okud je server online, vykona se cast kodu po "except"
+      with urllib.request.urlopen('http://192.168.1.106/api') as url:      	    #Deklarace URL adresy + zjisteni, zda je server online - okud je server online, vykona se cast kodu po "except"
         data = json.loads(url.read())                                             #Kopie JSONu
         return jsonify(data)							                                        #Vraci JSON na adrese serveru /api
 
@@ -40,7 +40,7 @@ while True:                                                                     
   @app.route('/chart-api', methods=['GET'])					                              #Api grafu
   def chart_api():
     try:
-      with urllib.request.urlopen('http://192.168.88.247/api'):			              #Pokud je server online, vykona se cast kodu po "except"
+      with urllib.request.urlopen('http://192.168.1.106/api'):			              #Pokud je server online, vykona se cast kodu po "except"
         mycursor = mydb.cursor()						                                      #Kurzor databaze
         mycursor.execute("SELECT * FROM (SELECT * FROM teplomer ORDER BY id DESC LIMIT 13) t ORDER BY id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
         myresult = mycursor.fetchall()						                                #Vykonej prikaz

@@ -1,11 +1,11 @@
-/// Datový model
+// Datový model
 class Thermometer {
   double temperature;
-  double pressure;
+  double humidity;
 
-  Thermometer({this.temperature, this.pressure});
+  Thermometer({this.temperature, this.humidity});
 
   // Takzvaně gettery
   String get temp => this.temperature.toStringAsFixed(1);
-  String get psi => this.pressure.toStringAsFixed(0);
+  String get humi => this.humidity.toStringAsFixed(1);
 }

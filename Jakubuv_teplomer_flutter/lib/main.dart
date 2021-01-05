@@ -55,25 +55,45 @@ class HomePageState extends State<HomePage> {
                   Container(
                     color: Colors.blue,
                     height: 252,
-                    child: Row(
+                    child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "${_data.temp}",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 72,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Teplota",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )
+                            ],
                           ),
-                          Text(
-                            "\u2103",
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 72,
-                              fontWeight: FontWeight.w200,
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${_data.temp}",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 72,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                "\u2103",
+                                style: TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 72,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              ),
+                            ],
                           ),
                         ]),
                   ),
@@ -86,25 +106,45 @@ class HomePageState extends State<HomePage> {
                               height: 50))),
                   Container(
                     height: 222,
-                    child: Row(
+                    child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text(
-                            "${_data.psi}",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 200, 200, 200),
-                              fontSize: 72,
-                              fontWeight: FontWeight.w500,
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "Vlhkost",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 200, 200, 200),
+                                  fontSize: 32,
+                                  fontWeight: FontWeight.w300,
+                                ),
+                              )
+                            ],
                           ),
-                          Text(
-                            "\u02b0\u1d3e\u1d43",
-                            style: TextStyle(
-                              color: Color.fromARGB(255, 200, 200, 200),
-                              fontSize: 72,
-                              fontWeight: FontWeight.w200,
-                            ),
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                "${_data.humi}",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 200, 200, 200),
+                                  fontSize: 72,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
+                              Text(
+                                "%",
+                                style: TextStyle(
+                                  color: Color.fromARGB(255, 200, 200, 200),
+                                  fontSize: 72,
+                                  fontWeight: FontWeight.w200,
+                                ),
+                              ),
+                            ],
                           ),
                         ]),
                   ),
