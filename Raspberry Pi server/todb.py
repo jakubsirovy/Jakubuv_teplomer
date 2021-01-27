@@ -2,18 +2,17 @@ import mysql.connector
 import urllib.request, json
 import time, datetime                                                             #Import knihoven
 
-mydb = mysql.connector.connect(
-  host="localhost",
-  user="****",
-  password="****",
-  database="****"
-)                                                                                 #Udaje pro pripojeni k databazi
+mydb = mysql.connector.connect(                                                   #Udaje pro pripojeni k databazi
+      host="localhost",
+      user="****",
+      password="****",
+      database="****")
 
 while True:                                                                       #Nekonecna smycka
   if datetime.datetime.now().minute == 0:                                         #Vykonej kazdou hodinu
-    req = urllib.request.Request('http://192.168.88.247/api')                     #Zjisti, zdali je server online. Pokud neni, skoci na except (radek 25)
+    req = urllib.request.Request('http://192.168.1.106/api')                      #Zjisti, zdali je server online. Pokud neni, skoci na except (radek 25)
     try: 
-      with urllib.request.urlopen('http://192.168.88.247/api') as url:            #Deklarace URL adresy
+      with urllib.request.urlopen('http://192.168.1.106/api') as url:             #Deklarace URL adresy
         data = json.loads(url.read().decode())                                    #Dekodovani JSONu
         tmp = data['temperature']                                                 #Promenna pro teplotu
         hum = data['humidity']                                                    #Promenna pro tlak
