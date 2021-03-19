@@ -7,12 +7,12 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import codecs	                                                  		                    #Import knihoven
 
-mydb = mysql.connector.connect(
+mydb = mysql.connector.connect(                                                         #Udaje pro pripojeni k databazi
   host="localhost",
   user="****",
   password="****",
   database="****"
-)                                                                                       #Udaje pro pripojeni k databazi
+)
 
 mydb.start_transaction(isolation_level='READ UNCOMMITTED')			                        #Zajisti moznost refreshovani hodnot
 
@@ -29,7 +29,7 @@ while True:                                                                     
 
   @app.route("/api", methods=["GET"])						                                        #Api z ESP8266
   def api():
-    return jsonify({"humidity": 52,"temperature": 23.6})							              #Vraci JSON na adrese serveru /api
+    return jsonify({"humidity": 52,"temperature": 23.6})							                  #Vraci JSON na adrese serveru /api
 
   @app.route("/chart-api", methods=["GET"])					                                    #Api grafu
   def chart_api():

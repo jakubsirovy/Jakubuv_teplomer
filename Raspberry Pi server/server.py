@@ -7,10 +7,6 @@ from flask import Flask, jsonify
 from flask_cors import CORS
 import codecs	                                                  		              #Import knihoven
 
-                                                                               #Udaje pro pripojeni k databazi
-
-
-
 html = codecs.open("/home/ubuntu/index.html", "r", "utf-8").read()		            #Import html souboru
 
 while True:                                                                       #Nekonecna smycka
@@ -36,13 +32,13 @@ while True:                                                                     
   def chart_api():
     try:
       with urllib.request.urlopen('http://192.168.1.106/api'):			              #Pokud je server online, vykona se cast kodu po "except"
-        mydb = mysql.connector.connect(
+        mydb = mysql.connector.connect(                                           #Udaje pro pripojeni k databazi
           host="localhost",
           user="****",
           password="****",
           database="****"
         )  
-        mydb.start_transaction(isolation_level='READ UNCOMMITTED')			                  #Zajisti moznost refreshovani hodnot
+        mydb.start_transaction(isolation_level='READ UNCOMMITTED')			          #Zajisti moznost refreshovani hodnot
         mycursor = mydb.cursor()						                                      #Kurzor databaze
         mycursor.execute("SELECT * FROM (SELECT * FROM teplomer ORDER BY id DESC LIMIT 13) t ORDER BY id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
         myresult = mycursor.fetchall()						                                #Vykonej prikaz
