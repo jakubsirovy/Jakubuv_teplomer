@@ -82,7 +82,7 @@ void handle_json() {
   server.sendHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   server.sendHeader("Access-Control-Allow-Origin", "*");
   server.send(200, "application/json", jsonData);
-  }
+}
 
 void handle_OnConnect() {
   server.send(200, "text/html", SendHTML());
