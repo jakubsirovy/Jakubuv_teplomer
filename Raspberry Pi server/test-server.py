@@ -29,14 +29,14 @@ while True:                                                                     
 
   @app.route("/api", methods=["GET"])						                                        #Api z ESP8266
   def api():
-    return jsonify({"pressure": 981.752,"temperature": 23.6})							              #Vraci JSON na adrese serveru /api
+    return jsonify({"humidity": 52,"temperature": 23.6})							              #Vraci JSON na adrese serveru /api
 
   @app.route("/chart-api", methods=["GET"])					                                    #Api grafu
   def chart_api():
     mycursor = mydb.cursor()						                                                #Kurzor databaze
     mycursor.execute("SELECT * FROM (SELECT * FROM teplomer ORDER BY id DESC LIMIT 13) t ORDER BY id ASC;")		  #Vyber z tabulky teplomer poslednich 13 zaznamu
     myresult = mycursor.fetchall()						                                          #Vykonej prikaz
-    rowHeaders = ("id", "timestamp", "temperature", "pressure")		                      #Nazvy sloupcu z tabulky
+    rowHeaders = ("id", "timestamp", "temperature", "humidity")		                      #Nazvy sloupcu z tabulky
     jsonData = []								                                                        #Pole hodnot
     for x in myresult:							                                                    #Pro kazdou hodnotu v poli...
       jsonData.append(dict(zip(rowHeaders, x)))				                                  #Vytvor JSON z pole
